@@ -1,5 +1,3 @@
-# XRPLEVM.github.io
-XRPL EVM SIDECHAIN INDEXER
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +25,29 @@ XRPL EVM SIDECHAIN INDEXER
 
   <div id="result"></div>
 
-  <script src="your-script.js"></script>
+  <script>
+    document.getElementById('apiForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      var address = document.getElementById('address').value;
+      var contractAddress = document.getElementById('contractAddress').value;
+      var page = document.getElementById('page').value;
+      var offset = document.getElementById('offset').value;
+      var apiKey = document.getElementById('apiKey').value;
+
+      var url = 'https://api.etherscan.io/api?module=account&action=addresstokennftinventory&address=' + address + '&contractaddress=' + contractAddress + '&page=' + page + '&offset=' + offset + '&apikey=' + apiKey;
+
+      fetch(url)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          document.getElementById('result').textContent = JSON.stringify(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    });
+  </script>
 </body>
 </html>
